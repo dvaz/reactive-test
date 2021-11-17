@@ -2,8 +2,10 @@ package com.example.reactivetest.api.response;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -12,7 +14,7 @@ public class InvoiceResponse {
 
     private String id;
 
-    private String name;
+    private String externalId;
 
     private BigDecimal totalItemsAmount;
 
@@ -21,4 +23,6 @@ public class InvoiceResponse {
     private BigDecimal totalAmount;
 
     private List<InvoiceItemResponse> items;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime createAt;
 }

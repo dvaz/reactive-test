@@ -3,6 +3,10 @@ package com.example.reactivetest.entity.converter;
 import com.example.reactivetest.api.request.InvoiceDTO;
 import com.example.reactivetest.entity.InvoiceEntity;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 
 public class InvoiceEntityMapper {
@@ -10,11 +14,10 @@ public class InvoiceEntityMapper {
     public static InvoiceEntity from(InvoiceDTO invoiceDTO) {
 
         return Objects.isNull(invoiceDTO) ? null : InvoiceEntity.builder()
-                .name(invoiceDTO.getName())
-                .totalAmount(invoiceDTO.getTotalAmount())
-                .totalItemsAmount(invoiceDTO.getTotalItemsAmount())
+                .externalId(invoiceDTO.getExternalId())
                 .totalShippingAmount(invoiceDTO.getTotalShippingAmount())
                 .items(InvoiceItemMapper.from(invoiceDTO.getItems()))
+                .createAt(LocalDateTime.now(ZoneOffset.UTC))
                 .build();
 
     }

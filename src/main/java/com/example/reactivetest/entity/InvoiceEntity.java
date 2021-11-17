@@ -2,11 +2,13 @@ package com.example.reactivetest.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,17 +16,22 @@ import java.util.List;
 @Document(collection = "invoices")
 public class InvoiceEntity {
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	private String name;
+    @Indexed
+    private String externalId;
 
-	private BigDecimal totalItemsAmount;
+    private BigDecimal totalItemsAmount;
 
-	private BigDecimal totalShippingAmount;
+    private BigDecimal totalShippingAmount;
 
-	private BigDecimal totalAmount;
+    private BigDecimal totalAmount;
 
-	private List<InvoiceItem> items;
+    private List<InvoiceItem> items;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@Indexed
+    private LocalDateTime createAt;
 
 }

@@ -7,13 +7,9 @@ import java.util.List;
 
 @Data
 public class InvoiceDTO {
-    private String name;
-
-    private BigDecimal totalItemsAmount;
+    private String externalId;
 
     private BigDecimal totalShippingAmount;
-
-    private BigDecimal totalAmount;
 
     private List<InvoiceItemDTO> items;
 }
