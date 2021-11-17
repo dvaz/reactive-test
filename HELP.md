@@ -27,3 +27,9 @@ These additional references should also help you:
 * https://github.com/r2dbc/r2dbc-h2
 * https://www.ti-enxame.com/pt/java/inicializacao-spring-reativa-webflux-com-mysql/808426028/
 * https://www.sipios.com/blog-tech/handle-the-new-r2dbc-specification-in-java 
+
+
+### Docker mongo 
+* docker pull mongo
+* docker run --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=admin mongo
+* mongodb://root:admin@localhost:27017

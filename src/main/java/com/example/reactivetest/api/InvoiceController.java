@@ -4,6 +4,8 @@ import com.example.reactivetest.api.request.InvoiceDTO;
 import com.example.reactivetest.api.response.InvoiceResponse;
 import com.example.reactivetest.api.response.converter.InvoiceResponseMapper;
 import com.example.reactivetest.service.InvoiceService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@OpenAPIDefinition(info = @Info(title = "APIs", version = "1.0", description = "Documentation APIs v1.0"))
+
 @RestController
-@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/invoice")
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
