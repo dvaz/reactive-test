@@ -33,3 +33,7 @@ These additional references should also help you:
 * docker pull mongo
 * docker run --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=admin mongo
 * mongodb://root:admin@localhost:27017
+
+### Use docker compose 
+
+ Has two files in repo, mongodb.yml with only database and mongo.yml with DB and CLI (mongo-express)
