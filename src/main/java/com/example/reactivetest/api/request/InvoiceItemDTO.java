@@ -1,17 +1,25 @@
 package com.example.reactivetest.api.request;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class InvoiceItemDTO {
 
-	private Long quantity;
+    private Long quantity;
 
-	private String productDescription;
+    private String productDescription;
 
-	private BigDecimal itemAmount;
+    private BigDecimal itemAmount;
 
 
 }

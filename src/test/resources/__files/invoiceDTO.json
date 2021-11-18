@@ -1,0 +1,11 @@
+{
+  "externalId": "meuIdExterno-000009",
+  "totalShippingAmount": 10,
+  "items": [
+    {
+      "quantity": 6,
+      "productDescription": "meias",
+      "itemAmount": 9.70
+    }
+  ]
+}

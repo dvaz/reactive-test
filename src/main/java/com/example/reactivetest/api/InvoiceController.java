@@ -4,9 +4,6 @@ import com.example.reactivetest.api.request.InvoiceDTO;
 import com.example.reactivetest.api.response.InvoiceResponse;
 import com.example.reactivetest.api.response.converter.InvoiceResponseMapper;
 import com.example.reactivetest.service.InvoiceService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,25 +24,28 @@ public class InvoiceController {
     }
 
     @PostMapping
-    public Mono<InvoiceResponse> create(@RequestBody InvoiceDTO invoiceCreateRequest){
+    public Mono<InvoiceResponse> create(@RequestBody InvoiceDTO invoiceCreateRequest) {
 
         return invoiceService.create(invoiceCreateRequest)
                 .map(InvoiceResponseMapper::from);
     }
+
     @GetMapping
-    public Flux<InvoiceResponse> getAll(){
+    public Flux<InvoiceResponse> getAll() {
 
         return invoiceService.findAll()
                 .map(InvoiceResponseMapper::from);
     }
+
     @GetMapping("/{id}")
-    public Mono<InvoiceResponse> getById(@PathVariable String id){
+    public Mono<InvoiceResponse> getById(@PathVariable String id) {
 
         return invoiceService.findById(id)
                 .map(InvoiceResponseMapper::from);
     }
+
     @GetMapping("/external/{externalId}")
-    public Flux<InvoiceResponse> getByExternalId(@PathVariable String externalId){
+    public Flux<InvoiceResponse> getByExternalId(@PathVariable String externalId) {
 
         return invoiceService.findByExternalId(externalId)
                 .map(InvoiceResponseMapper::from);

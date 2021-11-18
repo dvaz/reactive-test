@@ -1,7 +1,11 @@
 package com.example.reactivetest.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +15,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Document(collection = "invoices")
 public class InvoiceEntity {
@@ -30,8 +37,9 @@ public class InvoiceEntity {
 
     private List<InvoiceItem> items;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-	@Indexed
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXX")
+    @JsonFormat(pattern = "yyyy-MM-dd[ ]['T']HH:mm[:ss][.SSS]X[':00']")
+    @Indexed
     private LocalDateTime createAt;
 
 }

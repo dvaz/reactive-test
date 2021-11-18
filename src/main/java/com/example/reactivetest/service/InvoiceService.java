@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InvoiceService {
@@ -40,10 +41,11 @@ public class InvoiceService {
     }
 
     private Mono<InvoiceEntity> calculateTotalInvoice(InvoiceEntity invoiceEntity) {
-        return Mono.just(invoiceEntity)
+        return Mono.justOrEmpty(invoiceEntity)
                 .map(entity -> {
                     entity.setTotalItemsAmount(calculateTotalItems(entity.getItems()));
-                    entity.setTotalAmount(entity.getTotalItemsAmount().add(entity.getTotalShippingAmount()));
+                    BigDecimal totalInvoice = entity.getTotalItemsAmount().add(Optional.ofNullable(entity.getTotalShippingAmount()).orElse(BigDecimal.ZERO));
+                    entity.setTotalAmount(totalInvoice);
                     return entity;
                 });
 

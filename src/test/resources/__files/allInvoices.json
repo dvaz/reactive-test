@@ -1,0 +1,52 @@
+[
+  {
+    "id": "6194f68f1691705200aea325",
+    "externalId": "minhaLojaPedido00001",
+    "totalItemsAmount": 100,
+    "totalShippingAmount": 15,
+    "totalAmount": 115,
+    "items": [
+      {
+        "quantity": 1,
+        "productDescription": "meu item 1",
+        "itemAmount": 20
+      },
+      {
+        "quantity": 1,
+        "productDescription": "meu item 2",
+        "itemAmount": 50
+      },
+      {
+        "quantity": 1,
+        "productDescription": "meu item 3",
+        "itemAmount": 30
+      }
+    ],
+    "createAt": "2021-11-17T12:33:19.386"
+  },
+  {
+    "id": "6194f6c81691705200aea326",
+    "externalId": "minhaLojaPedido00002",
+    "totalItemsAmount": 260,
+    "totalShippingAmount": 15,
+    "totalAmount": 275,
+    "items": [
+      {
+        "quantity": 3,
+        "productDescription": "meu item 1",
+        "itemAmount": 20
+      },
+      {
+        "quantity": 1,
+        "productDescription": "meu item 2",
+        "itemAmount": 50
+      },
+      {
+        "quantity": 5,
+        "productDescription": "meu item 3",
+        "itemAmount": 30
+      }
+    ],
+    "createAt": "2021-11-17T12:34:16.865"
+  }
+]
