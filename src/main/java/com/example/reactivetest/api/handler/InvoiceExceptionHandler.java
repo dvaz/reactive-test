@@ -1,4 +1,4 @@
-package com.example.reactivetest.configuration;
+package com.example.reactivetest.api.handler;
 
 import com.example.reactivetest.exception.InvoiceNotFoundException;
 import org.springframework.http.HttpStatus;

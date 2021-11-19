@@ -1,8 +1,11 @@
 package com.example.reactivetest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
@@ -10,8 +13,15 @@ import java.util.List;
 
 public class BaseUtilTests {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private static ObjectMapper objectMapper;
+
+    static {
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
 
     private final String PATH_DEFAULT = "classpath:%s.json";
 

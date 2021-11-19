@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -25,7 +24,6 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureWebTestClient(timeout = "10000")
 @ActiveProfiles("integration-test")
-@AutoConfigureWireMock(port = 0)
 public class InvoiceControllerTest extends BaseUtilTests {
     @Autowired
     WebTestClient webTestClient;
@@ -52,10 +50,6 @@ public class InvoiceControllerTest extends BaseUtilTests {
                 .expectBodyList(InvoiceResponse.class)
                 .hasSize(invoiceEntities.size())
                 .equals(invoiceEntities)
-//                .consumeWith(listEntityExchangeResult -> {
-//                    List<InvoiceResponse> responseBody = listEntityExchangeResult.getResponseBody();
-//                    System.out.println(responseBody.size());
-//                })
         ;
     }
 

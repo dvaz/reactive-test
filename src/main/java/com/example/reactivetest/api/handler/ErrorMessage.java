@@ -1,4 +1,4 @@
-package com.example.reactivetest.configuration;
+package com.example.reactivetest.api.handler;
 
 public class ErrorMessage {
     private String message;
