@@ -38,7 +38,7 @@ These additional references should also help you:
 
  Has two files in repo, mongodb.yml with only database and mongo.yml with DB and CLI (mongo-express)
  
-### For tests -- pending implementation 
+### For tests 
 * create URI in https://beeceptor.com/ 
 * change config in properties to target to your URI
 * Body expected is { "status": "ACTIVE", "description":"Test call API", "amount":10.5}
