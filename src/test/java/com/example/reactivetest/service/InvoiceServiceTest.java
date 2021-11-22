@@ -4,12 +4,13 @@ import com.example.reactivetest.BaseUtilTests;
 import com.example.reactivetest.entity.InvoiceEntity;
 import com.example.reactivetest.exception.InvoiceNotFoundException;
 import com.example.reactivetest.repository.InvoiceRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -19,17 +20,29 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.will;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class InvoiceServiceTest extends BaseUtilTests {
+    String uri = "local";
 
-    @InjectMocks
     private InvoiceService invoiceService;
 
+    WebClient.Builder webClientBuilder;
+    WebClient webClientMock;
     @Mock
     private InvoiceRepository invoiceRepository;
 
+    @BeforeEach
+    public void setUp() {
+        WebClient.Builder webClientBuilder = mock(WebClient.Builder.class);
+        when(webClientBuilder.baseUrl(uri)).thenReturn(webClientBuilder);
+
+        webClientMock = mock(WebClient.class);
+        when(webClientBuilder.baseUrl(uri).build()).thenReturn(webClientMock);
+        invoiceService = new InvoiceService(invoiceRepository, webClientBuilder, uri);
+    }
 
     @Test
     public void getEntities() {
@@ -82,6 +95,4 @@ public class InvoiceServiceTest extends BaseUtilTests {
         ;
     }
 
-    // ta pendente criar uma nova funcionalidade no codigo que vai ser integrar com um API externa, para poder exemplificar
-    // o uso do stubfor que tem como objetivo mocar a chama http
 }

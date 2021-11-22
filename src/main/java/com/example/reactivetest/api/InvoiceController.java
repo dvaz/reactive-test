@@ -50,4 +50,9 @@ public class InvoiceController {
         return invoiceService.findByExternalId(externalId)
                 .map(InvoiceResponseMapper::from);
     }
+    @GetMapping("/call-api-external")
+    public Mono<String> callApiExternal() {
+
+        return invoiceService.callApi();
+    }
 }

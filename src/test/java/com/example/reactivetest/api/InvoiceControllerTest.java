@@ -7,12 +7,15 @@ import com.example.reactivetest.api.response.InvoiceItemResponse;
 import com.example.reactivetest.api.response.InvoiceResponse;
 import com.example.reactivetest.entity.InvoiceEntity;
 import com.example.reactivetest.repository.InvoiceRepository;
+import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -20,10 +23,16 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.client.WireMock.serverError;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+
 
 @SpringBootTest
 @AutoConfigureWebTestClient(timeout = "10000")
 @ActiveProfiles("integration-test")
+@AutoConfigureWireMock(port = 0)
 public class InvoiceControllerTest extends BaseUtilTests {
     @Autowired
     WebTestClient webTestClient;
@@ -63,6 +72,46 @@ public class InvoiceControllerTest extends BaseUtilTests {
                 .isOk()
                 .expectBodyList(InvoiceResponse.class)
                 .hasSize(0);
+    }
+
+    @Test
+    public void getCalApi() {
+        String expectedResponse = "{ \"status\": \"ACTIVE\", \"description\":\"Test call API MOCK\", \"amount\":30.5}";
+        stubFor(get("/product")
+                .willReturn(ok()
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .withBodyFile("externalApi.json")));
+        webTestClient
+                .get()
+                .uri("/invoices/call-api-external")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(String.class)
+                .consumeWith(response -> {
+                    Assertions.assertEquals(expectedResponse.toString(), response.getResponseBody());
+                })
+        ;
+    }
+
+    @Test
+    public void getCalApiError() {
+        String expectedResponse = "{\"status\":\"FAIL\", \"messagem\":\"error call endpoint external\"}";
+        stubFor(get("/product")
+                .willReturn(serverError()
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                ));
+        webTestClient
+                .get()
+                .uri("/invoices/call-api-external")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(String.class)
+                .consumeWith(response -> {
+                    Assertions.assertEquals(expectedResponse, response.getResponseBody());
+                })
+        ;
     }
 
     @Test
